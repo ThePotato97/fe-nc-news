@@ -19,6 +19,11 @@
   height: 140px;
 }
 
+.card-container:hover {
+  outline: 1px solid #333;
+  cursor: pointer;
+}
+
 .card-title {
   font-size: 1rem;
   font-weight: bold;
@@ -44,4 +49,13 @@
 .card-comments {
   font-size: 1rem;
   margin: 0;
+}
+
+
+.article-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-items: center;
+  height: 140px;
 }

@@ -1,4 +1,7 @@
-function ArticleListCard({ article }) {
+import { useNavigate } from "react-router-dom";
+
+function ArticleListCard({ article, hideThumbnail = false }) {
+  const navigate = useNavigate();
   const {
     author,
     title,
@@ -9,9 +12,12 @@ function ArticleListCard({ article }) {
     article_img_url,
     comment_count,
   } = article;
+  const handleClick = () => {
+    navigate(`/article/${article_id}`);
+  };
   return (
     <div>
-      <div className="card-container">
+      <div onClick={handleClick} className="card-container">
         <div>
           <div>⬆️</div>
           <div>{votes}</div>
