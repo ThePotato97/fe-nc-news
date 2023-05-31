@@ -14,9 +14,13 @@ function ArticleList() {
   }, []);
   return (
     <div className="article-list">
-      {articles.map((article) => (
-        <ArticleListCard key={article.article_id} article={article} />
-      ))}
+      {articles.length > 0 ? (
+        articles.map((article) => (
+          <ArticleListCard key={article.article_id} article={article} />
+        ))
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }
