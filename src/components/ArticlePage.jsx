@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import fetchArticle from "../controllers/fetchArticle";
 import { useParams } from "react-router-dom";
-import { Paper } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import { Stack } from "@mui/material";
 import VotingButtons from "./VotingButtons";
 
@@ -36,16 +36,17 @@ function ArticlePage() {
                   alignItems={"start"}
                   justifyContent={"center"}
                 >
-                  <h3 className="card-title">{title}</h3>
-                  <p className="card-author"></p>
-                  <p className="card-topic">
+                  <Typography variant={"h6"} fontWeight={"bold"}>
+                    {title}
+                  </Typography>
+                  <Typography variant={"subtitle1"}>
                     t/{topic} Posted by {author}
-                  </p>
+                  </Typography>
                 </Stack>
               </Stack>
             </Paper>
             <img src={article_img_url} className="article-image" alt={title} />
-            <p>{body}</p>
+            <Typography variant={"body1"}>{body}</Typography>
           </Stack>
         </Paper>
       ) : (
