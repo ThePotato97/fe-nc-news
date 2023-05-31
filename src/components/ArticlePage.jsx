@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { Paper, Typography } from "@mui/material";
 import { Stack } from "@mui/material";
 import VotingButtons from "./VotingButtons";
+import Comments from "./Comments";
 
 function ArticlePage() {
   const { articleId } = useParams();
@@ -47,6 +48,7 @@ function ArticlePage() {
             </Paper>
             <img src={article_img_url} className="article-image" alt={title} />
             <Typography variant={"body1"}>{body}</Typography>
+            <Comments articleId={articleId} />
           </Stack>
         </Paper>
       ) : (
