@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import VotingButtons from "./VotingButtons";
 import { Link } from "react-router-dom";
+import { Paper, Stack } from "@mui/material";
 
 function ArticleListCard({ article, hideThumbnail = false }) {
   const navigate = useNavigate();
@@ -15,8 +16,8 @@ function ArticleListCard({ article, hideThumbnail = false }) {
     comment_count,
   } = article;
   return (
-    <div>
-      <div className="card-container">
+    <Paper sx={{ p: 1 }}>
+      <Stack spacing={1} direction="row">
         <VotingButtons votes={votes} />
         <img className="card-image" src={article_img_url} alt={title} />
         <Link to={`/article/${article_id}`} className="card-info">
@@ -27,8 +28,8 @@ function ArticleListCard({ article, hideThumbnail = false }) {
           </p>
           <p className="card-comments">🗨️: {comment_count}</p>
         </Link>
-      </div>
-    </div>
+      </Stack>
+    </Paper>
   );
 }
 

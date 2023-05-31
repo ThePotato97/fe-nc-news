@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import fetchArticles from "../controllers/fetchArticles";
 import { useState } from "react";
 import ArticleListCard from "./ArticleListCard";
+import { Stack } from "@mui/material";
 
 function ArticleList() {
   const [articles, setArticles] = useState([]);
@@ -13,7 +14,7 @@ function ArticleList() {
     getArticles();
   }, []);
   return (
-    <div className="article-list">
+    <Stack spacing={1}>
       {articles.length > 0 ? (
         articles.map((article) => (
           <ArticleListCard key={article.article_id} article={article} />
@@ -21,7 +22,7 @@ function ArticleList() {
       ) : (
         <p>Loading...</p>
       )}
-    </div>
+    </Stack>
   );
 }
 
