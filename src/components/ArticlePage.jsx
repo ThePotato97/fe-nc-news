@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import fetchArticle from "../controllers/fetchArticle";
 import { useParams } from "react-router-dom";
-import ArticleListCard from "./ArticleListCard";
+import { Paper } from "@mui/material";
+import { Stack } from "@mui/material";
+import VotingButtons from "./VotingButtons";
 
 function ArticlePage() {
   const { articleId } = useParams();
@@ -14,30 +16,38 @@ function ArticlePage() {
     };
     getArticle();
   }, [articleId]);
-  console.log(article);
-  const { author, title, topic, votes, article_img_url } = article;
+  const { author, title, topic, votes, article_img_url, body } = article;
   return (
     <>
       {title !== undefined ? (
-        <>
-          <div className="article-header">
-            <div>
-              <div>⬆️</div>
-              <div>{votes}</div>
-              <div>⬇️</div>
-            </div>
-            <img className="card-image" src={article_img_url} alt={title} />
-            <div className="card-info">
-              <h3 className="card-title">{title}</h3>
-              <p className="card-author"></p>
-              <p className="card-topic">
-                t/{topic} Posted by {author}
-              </p>
-            </div>
-          </div>
-          <img src={article_img_url} alt={article.title} />
-          <p>{article.body}</p>{" "}
-        </>
+        <Paper sx={{ p: 1, maxWidth: "500px" }}>
+          <Stack justifyContent={"space-between"} spacing={2}>
+            <Paper elevation={2} sx={{ p: 1 }}>
+              <Stack
+                id="article-page-card"
+                justifyContent={"left"}
+                direction={"row"}
+                alignContent={"center"}
+                spacing={2}
+              >
+                <VotingButtons votes={votes} />
+                <Stack
+                  flexDirection={"column"}
+                  alignItems={"start"}
+                  justifyContent={"center"}
+                >
+                  <h3 className="card-title">{title}</h3>
+                  <p className="card-author"></p>
+                  <p className="card-topic">
+                    t/{topic} Posted by {author}
+                  </p>
+                </Stack>
+              </Stack>
+            </Paper>
+            <img src={article_img_url} className="article-image" alt={title} />
+            <p>{body}</p>{" "}
+          </Stack>
+        </Paper>
       ) : (
         <p>Loading...</p>
       )}

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import VotingButtons from "./VotingButtons";
 
 function ArticleListCard({ article, hideThumbnail = false }) {
   const navigate = useNavigate();
@@ -18,11 +19,7 @@ function ArticleListCard({ article, hideThumbnail = false }) {
   return (
     <div>
       <div onClick={handleClick} className="card-container">
-        <div>
-          <div>⬆️</div>
-          <div>{votes}</div>
-          <div>⬇️</div>
-        </div>
+        <VotingButtons votes={votes} />
         <img className="card-image" src={article_img_url} alt={title} />
         <div className="card-info">
           <h3 className="card-title">{title}</h3>
