@@ -45,7 +45,7 @@ function ArticlePage() {
               </Stack>
             </Paper>
             <img src={article_img_url} className="article-image" alt={title} />
-            <p>{body}</p>{" "}
+            <p>{body}</p>
           </Stack>
         </Paper>
       ) : (
