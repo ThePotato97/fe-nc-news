@@ -2,27 +2,61 @@ import { useEffect } from "react";
 import { useState } from "react";
 import fetchArticle from "../controllers/fetchArticle";
 import { useParams } from "react-router-dom";
-import { Paper, Typography } from "@mui/material";
+import { Alert, Paper, Typography, Collapse } from "@mui/material";
 import { Stack } from "@mui/material";
 import VotingButtons from "./VotingButtons";
 import Comments from "./Comments";
+import incArticleVotes from "../controllers/incArticleVotes";
+import { Snackbar } from "@mui/material";
 
 function ArticlePage() {
   const { articleId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
+  const [votes, setVotes] = useState(0);
   const [article, setArticle] = useState({});
+  const [open, setOpen] = useState(false);
+
+  const handleError = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleVote = async (amount) => {
+    setVotes((currVotes) => currVotes + amount);
+    try {
+      const article = await incArticleVotes(articleId, amount);
+      setArticle(article);
+      setVotes(article.votes);
+    } catch (err) {
+      handleError();
+      setVotes((currVotes) => currVotes - amount);
+    }
+  };
+
   useEffect(() => {
     const getArticle = async () => {
       setIsLoading(true);
       const article = await fetchArticle(articleId);
       setArticle(article);
+      setVotes(article.votes);
       setIsLoading(false);
     };
     getArticle();
   }, [articleId]);
-  const { author, title, topic, votes, article_img_url, body } = article;
+  const { author, title, topic, article_img_url, body } = article;
   return (
     <>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          Failed to add vote!
+        </Alert>
+      </Snackbar>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
@@ -36,7 +70,7 @@ function ArticlePage() {
                 alignContent={"center"}
                 spacing={2}
               >
-                <VotingButtons votes={votes} />
+                <VotingButtons handleVote={handleVote} votes={votes} />
                 <Stack
                   flexDirection={"column"}
                   alignItems={"start"}

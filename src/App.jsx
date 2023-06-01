@@ -3,11 +3,14 @@ import ArticleList from "./components/ArticleList";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Nav } from "./components";
 import ArticlePage from "./components/ArticlePage";
-import { Stack } from "@mui/material";
-import { useMediaQuery } from "@mui/material";
 import { useMemo } from "react";
-import { createTheme } from "@mui/material";
-import { ThemeProvider } from "@mui/material";
+import {
+  ThemeProvider,
+  createTheme,
+  CssBaseline,
+  useMediaQuery,
+  Stack,
+} from "@mui/material";
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -24,6 +27,7 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
+        <CssBaseline />
         <BrowserRouter>
           <Stack alignItems={"center"}>
             <Nav />
