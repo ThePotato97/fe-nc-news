@@ -16,7 +16,7 @@ function ArticleList() {
       setIsLoading(false);
     };
     getArticles();
-  }, []);
+  }, [topicName]);
   return (
     <Stack spacing={1}>
       {isLoading ? (
