@@ -8,6 +8,8 @@ import { Input } from "@mui/icons-material";
 import postComment from "../controllers/postComment";
 import { useSnackbar } from "notistack";
 
+const USERNAME = "grumpy19";
+
 function Comments({ articleId }) {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
@@ -54,14 +56,14 @@ function Comments({ articleId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const comment = e.target.comment.value;
-    const username = e.target.username.value;
     setSubmitDisabled(true);
     try {
-      const postedComment = await postComment(articleId, username, comment);
+      const postedComment = await postComment(articleId, USERNAME, comment);
       setComments((currComments) => {
         return [postedComment, ...currComments];
       });
       queueSnackbar("Comment posted!", "success");
+      e.target.comment.value = "";
     } catch (err) {
       queueSnackbar("Failed to post comment!", "error");
     }
@@ -72,12 +74,7 @@ function Comments({ articleId }) {
     <>
       <form onSubmit={handleSubmit}>
         <FormControl fullWidth>
-          <TextField
-            required
-            name="username"
-            placeholder="Enter a username"
-            inputProps={{ maxLength: 1000 }}
-          />
+          <Typography variant="subtitle1">Commenting as {USERNAME}</Typography>
           <TextField
             required
             name="comment"
