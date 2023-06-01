@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import fetchComments from "../controllers/fetchComments";
 import CommentCard from "./CommentCard";
-import { Typography } from "@mui/material";
-import { Paper } from "@mui/material";
 import { Comment } from "@mui/icons-material";
-import { Stack } from "@mui/material";
+import { Paper, Stack, Typography, TextField, Button } from "@mui/material";
+import { FormControl, InputLabel, FormHelperText } from "@mui/material";
+import { Input } from "@mui/icons-material";
+import postComment from "../controllers/postComment";
 
 function Comments({ articleId }) {
   const [comments, setComments] = useState([]);
@@ -17,7 +18,7 @@ function Comments({ articleId }) {
       setIsLoading(false);
     };
     getComments();
-  }, []);
+  }, [articleId]);
 
   const commentElements =
     comments.length > 0 ? (
@@ -35,7 +36,41 @@ function Comments({ articleId }) {
       </Paper>
     );
 
-  return <>{isLoading ? <p>Loading...</p> : commentElements}</>;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const comment = e.target.comment.value;
+    const username = e.target.username.value;
+    const postedComment = await postComment(articleId, username, comment);
+    setComments((currComments) => {
+      return [postedComment, ...currComments];
+    });
+  };
+
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <FormControl fullWidth>
+          <TextField
+            name="username"
+            placeholder="Enter a username"
+            inputProps={{ maxLength: 1000 }}
+          />
+          <TextField
+            name="comment"
+            placeholder="Enter a comment"
+            multiline
+            minRows={4}
+            maxRows={10}
+            inputProps={{ maxLength: 1000 }}
+          />
+          <Button type="submit" variant="contained">
+            Submit
+          </Button>
+        </FormControl>
+      </form>
+      {isLoading ? <p>Loading...</p> : commentElements}
+    </>
+  );
 }
 
 export default Comments;

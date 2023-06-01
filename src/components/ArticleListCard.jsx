@@ -1,7 +1,7 @@
 import VotingButtons from "./VotingButtons";
-import { Link } from "react-router-dom";
-import { Paper, Stack, Typography } from "@mui/material";
+import { Paper, Stack, Typography, Link } from "@mui/material";
 import { Comment } from "@mui/icons-material";
+import { Link as RouterLink } from "react-router-dom";
 function ArticleListCard({ article }) {
   const {
     author,
@@ -18,7 +18,11 @@ function ArticleListCard({ article }) {
       <Stack spacing={1} direction="row" alignItems={"center"}>
         <VotingButtons votes={votes} />
         <img className="card-image" src={article_img_url} alt={title} />
-        <Link to={`/article/${article_id}`} className="card-info">
+        <Link
+          underline="none"
+          to={`/article/${article_id}`}
+          component={RouterLink}
+        >
           <Typography variant={"subtitle1"} fontWeight={"bold"}>
             {title}
           </Typography>
