@@ -28,7 +28,7 @@ export function getRelativeTime(postedTime) {
     } else if (minutes >= 1) {
         timeAgo = formatter.format(-minutes, "minute");
     } else {
-        timeAgo = formatter.format(-seconds, "second");
+        timeAgo = "just now"
     }
     return timeAgo;
 }
