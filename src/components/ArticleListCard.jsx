@@ -1,10 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import VotingButtons from "./VotingButtons";
 import { Link } from "react-router-dom";
 import { Paper, Stack, Typography } from "@mui/material";
 import { Comment } from "@mui/icons-material";
-function ArticleListCard({ article, hideThumbnail = false }) {
-  const navigate = useNavigate();
+function ArticleListCard({ article }) {
   const {
     author,
     title,
