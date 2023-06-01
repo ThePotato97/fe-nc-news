@@ -33,6 +33,7 @@ function App() {
             <Nav />
             <Routes>
               <Route path="/" element={<ArticleList />} />
+              <Route path="/t/:topicName" element={<ArticleList />} />
               <Route path="/article/:articleId" element={<ArticlePage />} />
             </Routes>
           </Stack>

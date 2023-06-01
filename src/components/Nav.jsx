@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Topics from "./Topics";
 
 function Nav() {
   return (
@@ -6,6 +7,7 @@ function Nav() {
       <Link className="nav-link" to="/">
         Home
       </Link>
+      <Topics />
     </nav>
   );
 }
