@@ -1,9 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import VotingButtons from "./VotingButtons";
 import { Link } from "react-router-dom";
-
-function ArticleListCard({ article, hideThumbnail = false }) {
-  const navigate = useNavigate();
+import { Paper, Stack, Typography } from "@mui/material";
+import { Comment } from "@mui/icons-material";
+function ArticleListCard({ article }) {
   const {
     author,
     title,
@@ -15,20 +14,24 @@ function ArticleListCard({ article, hideThumbnail = false }) {
     comment_count,
   } = article;
   return (
-    <div>
-      <div className="card-container">
+    <Paper sx={{ p: 1 }}>
+      <Stack spacing={1} direction="row" alignItems={"center"}>
         <VotingButtons votes={votes} />
         <img className="card-image" src={article_img_url} alt={title} />
         <Link to={`/article/${article_id}`} className="card-info">
-          <h3 className="card-title">{title}</h3>
-          <p className="card-author"></p>
-          <p className="card-topic">
+          <Typography variant={"subtitle1"} fontWeight={"bold"}>
+            {title}
+          </Typography>
+          <Typography variant={"body1"}>
             t/{topic} Posted by {author}
-          </p>
-          <p className="card-comments">🗨️: {comment_count}</p>
+          </Typography>
+          <Stack direction="row" spacing={1}>
+            <Comment />
+            <Typography variant={"body2"}>{comment_count} comments</Typography>
+          </Stack>
         </Link>
-      </div>
-    </div>
+      </Stack>
+    </Paper>
   );
 }
 

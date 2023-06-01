@@ -5,22 +5,28 @@ import { useParams } from "react-router-dom";
 import { Paper, Typography } from "@mui/material";
 import { Stack } from "@mui/material";
 import VotingButtons from "./VotingButtons";
+import Comments from "./Comments";
 
 function ArticlePage() {
   const { articleId } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
   const [article, setArticle] = useState({});
   useEffect(() => {
     const getArticle = async () => {
+      setIsLoading(true);
       const article = await fetchArticle(articleId);
       setArticle(article);
+      setIsLoading(false);
     };
     getArticle();
   }, [articleId]);
   const { author, title, topic, votes, article_img_url, body } = article;
   return (
     <>
-      {title !== undefined ? (
-        <Paper sx={{ p: 1, maxWidth: "500px" }}>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <Paper sx={{ p: 1, maxWidth: "800px" }}>
           <Stack justifyContent={"space-between"} spacing={2}>
             <Paper elevation={2} sx={{ p: 1 }}>
               <Stack
@@ -47,10 +53,9 @@ function ArticlePage() {
             </Paper>
             <img src={article_img_url} className="article-image" alt={title} />
             <Typography variant={"body1"}>{body}</Typography>
+            <Comments articleId={articleId} />
           </Stack>
         </Paper>
-      ) : (
-        <p>Loading...</p>
       )}
     </>
   );

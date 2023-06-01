@@ -1,27 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import fetchArticles from "../controllers/fetchArticles";
-import { useState } from "react";
 import ArticleListCard from "./ArticleListCard";
+import { Stack } from "@mui/material";
+
 
 function ArticleList() {
+  const [isLoading, setIsLoading] = useState(true);
   const [articles, setArticles] = useState([]);
   useEffect(() => {
     const getArticles = async () => {
+      setIsLoading(true);
       const newArticles = await fetchArticles();
       setArticles(newArticles);
+      setIsLoading(false);
     };
     getArticles();
   }, []);
   return (
-    <div className="article-list">
-      {articles.length > 0 ? (
+    <Stack spacing={1}>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
         articles.map((article) => (
           <ArticleListCard key={article.article_id} article={article} />
         ))
-      ) : (
-        <p>Loading...</p>
       )}
-    </div>
+    </Stack>
   );
 }
 
