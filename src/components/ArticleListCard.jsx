@@ -15,7 +15,7 @@ function ArticleListCard({ article }) {
   } = article;
   return (
     <Paper sx={{ p: 1 }}>
-      <Stack spacing={1} direction="row">
+      <Stack spacing={1} direction="row" alignItems={"center"}>
         <VotingButtons votes={votes} />
         <img className="card-image" src={article_img_url} alt={title} />
         <Link to={`/article/${article_id}`} className="card-info">

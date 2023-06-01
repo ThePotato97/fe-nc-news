@@ -9,18 +9,23 @@ import Comments from "./Comments";
 
 function ArticlePage() {
   const { articleId } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
   const [article, setArticle] = useState({});
   useEffect(() => {
     const getArticle = async () => {
+      setIsLoading(true);
       const article = await fetchArticle(articleId);
       setArticle(article);
+      setIsLoading(false);
     };
     getArticle();
   }, [articleId]);
   const { author, title, topic, votes, article_img_url, body } = article;
   return (
     <>
-      {title !== undefined ? (
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
         <Paper sx={{ p: 1, maxWidth: "800px" }}>
           <Stack justifyContent={"space-between"} spacing={2}>
             <Paper elevation={2} sx={{ p: 1 }}>
@@ -51,8 +56,6 @@ function ArticlePage() {
             <Comments articleId={articleId} />
           </Stack>
         </Paper>
-      ) : (
-        <p>Loading...</p>
       )}
     </>
   );
