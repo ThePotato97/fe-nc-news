@@ -21,7 +21,7 @@ function ArticlePage() {
   return (
     <>
       {title !== undefined ? (
-        <Paper sx={{ p: 1, maxWidth: "500px" }}>
+        <Paper sx={{ p: 1, maxWidth: "800px" }}>
           <Stack justifyContent={"space-between"} spacing={2}>
             <Paper elevation={2} sx={{ p: 1 }}>
               <Stack
