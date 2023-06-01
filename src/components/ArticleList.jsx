@@ -3,9 +3,9 @@ import fetchArticles from "../controllers/fetchArticles";
 import ArticleListCard from "./ArticleListCard";
 import { Stack } from "@mui/material";
 
-
 function ArticleList() {
   const [isLoading, setIsLoading] = useState(true);
+  /** @type {useState<ArticleListState>} */
   const [articles, setArticles] = useState([]);
   useEffect(() => {
     const getArticles = async () => {
