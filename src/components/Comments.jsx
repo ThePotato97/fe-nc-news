@@ -6,10 +6,15 @@ import { Paper, Stack, Typography, TextField, Button } from "@mui/material";
 import { FormControl, InputLabel, FormHelperText } from "@mui/material";
 import { Input } from "@mui/icons-material";
 import postComment from "../controllers/postComment";
+import { useSnackbar } from "notistack";
 
 function Comments({ articleId }) {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [submitDisabled, setSubmitDisabled] = useState(false);
+
   useEffect(() => {
     const getComments = async () => {
       setIsLoading(true);
@@ -36,14 +41,31 @@ function Comments({ articleId }) {
       </Paper>
     );
 
+  const queueSnackbar = (message, variant) => {
+    enqueueSnackbar(message, {
+      variant: variant,
+      anchorOrigin: { vertical: "top", horizontal: "center" },
+      action: (key) => (
+        <Button onClick={() => closeSnackbar(key)}>Dismiss</Button>
+      ),
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const comment = e.target.comment.value;
     const username = e.target.username.value;
-    const postedComment = await postComment(articleId, username, comment);
-    setComments((currComments) => {
-      return [postedComment, ...currComments];
-    });
+    setSubmitDisabled(true);
+    try {
+      const postedComment = await postComment(articleId, username, comment);
+      setComments((currComments) => {
+        return [postedComment, ...currComments];
+      });
+      queueSnackbar("Comment posted!", "success");
+    } catch (err) {
+      queueSnackbar("Failed to post comment!", "error");
+    }
+    setSubmitDisabled(false);
   };
 
   return (
@@ -51,11 +73,13 @@ function Comments({ articleId }) {
       <form onSubmit={handleSubmit}>
         <FormControl fullWidth>
           <TextField
+            required
             name="username"
             placeholder="Enter a username"
             inputProps={{ maxLength: 1000 }}
           />
           <TextField
+            required
             name="comment"
             placeholder="Enter a comment"
             multiline
@@ -63,7 +87,7 @@ function Comments({ articleId }) {
             maxRows={10}
             inputProps={{ maxLength: 1000 }}
           />
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" disabled={submitDisabled}>
             Submit
           </Button>
         </FormControl>

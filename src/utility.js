@@ -8,9 +8,9 @@ export function getRelativeTime(postedTime) {
     const timeDifference = currentDate - createdAtDate;
 
     const seconds = timeDifference / 1000;
-    const minutes = seconds / 60;
-    const hours = minutes / 60;
-    const days = hours / 24;
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
     const months = Math.floor(days / 30);
     const years = Math.floor(days / 365);
 
