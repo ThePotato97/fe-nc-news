@@ -12,6 +12,7 @@ import {
   useMediaQuery,
   Stack,
 } from "@mui/material";
+import { HashRouter } from "react-router-dom";
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -30,7 +31,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <SnackbarProvider autoHideDuration={6000}>
-          <BrowserRouter>
+          <HashRouter>
             <Stack alignItems={"center"}>
               <Nav />
               <Routes>
@@ -38,7 +39,7 @@ function App() {
                 <Route path="/article/:articleId" element={<ArticlePage />} />
               </Routes>
             </Stack>
-          </BrowserRouter>
+          </HashRouter>
         </SnackbarProvider>
       </ThemeProvider>
     </>
