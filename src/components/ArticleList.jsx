@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import fetchArticles from "../controllers/fetchArticles";
+import { fetchArticles } from "../api/";
 import ArticleListCard from "./ArticleListCard";
 import { Stack } from "@mui/material";
 import { useParams } from "react-router-dom";

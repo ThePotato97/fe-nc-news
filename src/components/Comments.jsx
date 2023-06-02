@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import fetchComments from "../controllers/fetchComments";
+import { fetchComments } from "../api";
 import CommentCard from "./CommentCard";
-import { Typography } from "@mui/material";
-import { Paper } from "@mui/material";
+import { Typography, Paper, Stack } from "@mui/material";
 import { Comment } from "@mui/icons-material";
-import { Stack } from "@mui/material";
 
 function Comments({ articleId }) {
   const [comments, setComments] = useState([]);

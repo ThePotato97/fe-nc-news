@@ -1,13 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import fetchArticle from "../controllers/fetchArticle";
+import { fetchArticle, incArticleVotes } from "../api";
 import { useParams } from "react-router-dom";
-import { Alert, Paper, Typography, Collapse } from "@mui/material";
-import { Stack } from "@mui/material";
+import { Alert, Paper, Typography, Stack, Snackbar } from "@mui/material";
 import VotingButtons from "./VotingButtons";
 import Comments from "./Comments";
-import incArticleVotes from "../controllers/incArticleVotes";
-import { Snackbar } from "@mui/material";
 
 function ArticlePage() {
   const { articleId } = useParams();

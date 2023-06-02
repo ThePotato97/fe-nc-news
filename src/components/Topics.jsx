@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "@mui/material";
-import fetchTopics from "../controllers/fetchTopics";
+import { fetchTopics } from "../api";
 import { Link as RouterLink } from "react-router-dom";
 import { Paper, Typography, Tooltip } from "@mui/material";
 
