@@ -14,8 +14,12 @@ import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
 
 function ArticleList() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isAscending, setIsAscending] = useState(true);
-  const [sortBy, setSortBy] = useState("created_at");
+  const [isAscending, setIsAscending] = useState(
+    searchParams.get("order") === "asc" || true
+  );
+  const [sortBy, setSortBy] = useState(
+    searchParams.get("sort_by") || "created_at"
+  );
 
   const { topicName } = useParams();
   const [isLoading, setIsLoading] = useState(true);
