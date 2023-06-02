@@ -36,7 +36,7 @@ function App() {
               <Nav />
               <Routes>
                 <Route path="/" element={<ArticleList />} />
-                <Route path="/t/:topic" element={<ArticleList />} />
+                <Route path="/topic/:topic" element={<ArticleList />} />
                 <Route path="/article/:articleId" element={<ArticlePage />} />
               </Routes>
             </Stack>

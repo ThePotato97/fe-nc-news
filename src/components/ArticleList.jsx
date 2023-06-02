@@ -15,7 +15,7 @@ import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
 function ArticleList() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isAscending, setIsAscending] = useState(
-    searchParams.get("order") === "asc" || true
+    searchParams.get("order") === "asc"
   );
   const [sortBy, setSortBy] = useState(
     searchParams.get("sort_by") || "created_at"
@@ -24,7 +24,6 @@ function ArticleList() {
   const { topicName } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [articles, setArticles] = useState([]);
-  useEffect(() => {}, [sortBy, isAscending]);
   useEffect(() => {
     const getArticles = async () => {
       setIsLoading(true);
