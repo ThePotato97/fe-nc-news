@@ -1,8 +1,10 @@
 import VotingButtons from "./VotingButtons";
-import { Paper, Stack, Typography, Link } from "@mui/material";
+import { Paper, Stack, Typography, Link, Skeleton } from "@mui/material";
 import { Comment } from "@mui/icons-material";
 import { Link as RouterLink } from "react-router-dom";
-function ArticleListCard({ article }) {
+import { useState } from "react";
+function ArticleListCard({ article, loading }) {
+  const [imageLoaded, setImageLoaded] = useState(false);
   const {
     author,
     title,
@@ -14,24 +16,48 @@ function ArticleListCard({ article }) {
     comment_count,
   } = article;
   return (
-    <Paper sx={{ p: 1 }}>
+    <Paper elevation={2} sx={{ p: 2 }}>
       <Stack spacing={1} direction="row" alignItems={"center"}>
-        <VotingButtons votes={votes} />
-        <img className="card-image" src={article_img_url} alt={title} />
+        {loading || !imageLoaded ? (
+          <Skeleton variant="rectangular">
+            <VotingButtons votes={0} />
+          </Skeleton>
+        ) : (
+          <VotingButtons votes={votes} />
+        )}
+        {loading ? (
+          <Skeleton variant="rectangular">
+            <img className="card-image" />
+          </Skeleton>
+        ) : (
+          <img
+            className="card-image"
+            src={article_img_url}
+            alt={title}
+            onLoad={() => setImageLoaded(true)}
+          />
+        )}
         <Link
+          sx={{ width: "100%" }}
           underline="none"
           to={`/article/${article_id}`}
           component={RouterLink}
         >
           <Typography variant={"subtitle1"} fontWeight={"bold"}>
-            {title}
+            {loading ? <Skeleton /> : title}
           </Typography>
           <Typography variant={"body1"}>
-            t/{topic} Posted by {author}
+            {loading ? <Skeleton /> : `t/{topic} Posted by ${author}`}
           </Typography>
           <Stack direction="row" spacing={1}>
             <Comment />
-            <Typography variant={"body2"}>{comment_count} comments</Typography>
+            {loading ? (
+              <Skeleton width={50} />
+            ) : (
+              <Typography variant={"body2"}>
+                {comment_count} comments
+              </Typography>
+            )}
           </Stack>
         </Link>
       </Stack>
