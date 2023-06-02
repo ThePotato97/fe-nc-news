@@ -20,7 +20,15 @@ function Topics() {
         return (
           <Link to={`/t/${slug}`} key={slug} component={RouterLink}>
             <Tooltip title={description}>
-              <Paper sx={{ p: 1 }}>
+              <Paper
+                sx={{
+                  minHeight: "40px",
+                  minWidth: "80px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
                 <Typography variant={"body1"}>{slug}</Typography>
               </Paper>
             </Tooltip>
