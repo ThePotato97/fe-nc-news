@@ -47,7 +47,7 @@ function ArticleListCard({ article, loading }) {
             {loading ? <Skeleton /> : title}
           </Typography>
           <Typography variant={"body1"}>
-            {loading ? <Skeleton /> : `t/{topic} Posted by ${author}`}
+            {loading ? <Skeleton /> : `t/${topic} Posted by ${author}`}
           </Typography>
           <Stack direction="row" spacing={1}>
             <Comment />
