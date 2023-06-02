@@ -18,7 +18,7 @@ function Topics() {
     <>
       {topics.map(({ slug, description }) => {
         return (
-          <Link to={`/t/${slug}`} key={slug} component={RouterLink}>
+          <Link to={`/topic/${slug}`} key={slug} component={RouterLink}>
             <Tooltip title={description}>
               <Paper
                 sx={{
