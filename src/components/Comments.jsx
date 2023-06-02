@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
-import fetchComments from "../controllers/fetchComments";
+import { fetchComments } from "../api";
 import CommentCard from "./CommentCard";
+import {
+  Typography,
+  TextField,
+  Button,
+  FormControl,
+  Paper,
+  Stack,
+} from "@mui/material";
 import { Comment } from "@mui/icons-material";
-import { Paper, Stack, Typography, TextField, Button } from "@mui/material";
-import { FormControl, InputLabel, FormHelperText } from "@mui/material";
-import { Input } from "@mui/icons-material";
 import postComment from "../controllers/postComment";
 import { useSnackbar } from "notistack";
 
