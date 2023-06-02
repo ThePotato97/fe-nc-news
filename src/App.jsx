@@ -2,6 +2,7 @@ import "./App.css";
 import ArticleList from "./components/ArticleList";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Nav } from "./components";
+import { SnackbarProvider } from "notistack";
 import ArticlePage from "./components/ArticlePage";
 import { useMemo } from "react";
 import {
@@ -11,6 +12,7 @@ import {
   useMediaQuery,
   Stack,
 } from "@mui/material";
+import { HashRouter } from "react-router-dom";
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -28,16 +30,17 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <BrowserRouter>
-          <Stack alignItems={"center"}>
-            <Nav />
-            <Routes>
-              <Route path="/" element={<ArticleList />} />
-              <Route path="/t/:topicName" element={<ArticleList />} />
-              <Route path="/article/:articleId" element={<ArticlePage />} />
-            </Routes>
-          </Stack>
-        </BrowserRouter>
+        <SnackbarProvider autoHideDuration={6000}>
+          <HashRouter>
+            <Stack alignItems={"center"}>
+              <Nav />
+              <Routes>
+                <Route path="/" element={<ArticleList />} />
+                <Route path="/article/:articleId" element={<ArticlePage />} />
+              </Routes>
+            </Stack>
+          </HashRouter>
+        </SnackbarProvider>
       </ThemeProvider>
     </>
   );
